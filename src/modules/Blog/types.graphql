@@ -1,4 +1,3 @@
-# Blog Schema (Simple)
 type User {
   id: ID!
   name: String!
