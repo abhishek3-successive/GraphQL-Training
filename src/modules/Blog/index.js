@@ -1,4 +1,4 @@
-import { blogQueryResolvers, blogTypeResolvers } from "./query.js"
+import { blogQueryResolvers, blogTypeResolvers} from "./query.js"
 
 export const blogModule = {
     Query: blogQueryResolvers,

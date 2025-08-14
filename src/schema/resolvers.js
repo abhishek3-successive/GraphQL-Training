@@ -9,7 +9,14 @@ export const resolvers = {
     Mutation : {
         ...messageModule.Mutation
     },
-    User: blogModule.User,
-    Post: blogModule.Post,
-    Comment: blogModule.Comment
+    User: {
+        ...blogModule.User
+    },
+    Post: {
+        ...blogModule.Post
+    },
+
+    Comment: {
+        ...blogModule.Comment
+    }
 }

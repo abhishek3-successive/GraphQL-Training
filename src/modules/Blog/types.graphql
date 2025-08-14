@@ -20,7 +20,7 @@ type Comment {
   post: Post!
 }
 
-extend type Query {
+ type Query {
   users: [User!]!
   user(id: ID!): User
   posts: [Post!]!
