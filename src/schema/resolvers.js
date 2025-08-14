@@ -1,5 +1,5 @@
 import { messageModule } from "../modules/messages/index.js";
-import { blogModule } from "../modules/Blog/index.js";
+import { blogModule } from "../modules/blog/index.js";
 
 export const resolvers = {
     Query : {
