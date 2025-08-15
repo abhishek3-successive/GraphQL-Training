@@ -1,0 +1,48 @@
+import { blogData } from './mockdata.js';
+import { createPagination } from './helper/pagination.js';
+import { sortPost } from './helper/sorter.js';
+import { delay } from './helper/delay.js';
+
+export const blogQueryResolvers = {
+  userWithLoading : async(_, {id})=>{
+    const startTime = Date.now();
+    console.log(`Loading user ${id}... (2 sec delay)`);
+    await delay(2000);
+    const user = blogData.user.find(u => u.id === id);
+    const endTime = Date.now();
+
+    console.log(`user ${id} load Successfully in ${endTime - startTime}ms`);
+    return user
+  },
+
+  paginationPost : (_, {args}) =>{
+    const {sort , page , limit } = args;
+
+    const sortpost = sortPost(blogData.posts, sort);
+
+    const res = createPagination(sortpost , {page, limit})
+
+    return res;
+  },
+  users: () => blogData.user,
+  user: (_, { id }) => blogData.user.find(u => u.id === id),
+  posts: () => blogData.posts,
+  post: (_, { id }) => blogData.posts.find(p => p.id === id)
+};
+
+
+export const blogTypeResolvers = {
+  User: {
+    posts: (user) => blogData.posts.filter(p => p.authorId === user.id)
+  },
+
+  Post: {
+  author: (post) => blogData.user.find(u => u.id === post.authorId) || null,
+  comments: (post) => blogData.comments.filter(c => c.postId === post.id)
+},
+
+Comment: {
+  author: (comment) => blogData.user.find(u => u.id === comment.authorId) || null,
+  post: (comment) => blogData.posts.find(p => p.id === comment.postId) || null
+}
+};
