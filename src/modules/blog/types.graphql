@@ -27,8 +27,8 @@ type PageInfo {
 }
 
 type PostList {
-  posts : [Post!]!
-  pageInfo : PageInfo!
+  posts: [Post!]!
+  total: Int!
 }
 
 #input Types

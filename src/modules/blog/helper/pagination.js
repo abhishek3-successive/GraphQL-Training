@@ -2,7 +2,7 @@ export const createPagination = (item , args={} )=>{
    const { sort, page = 1, limit = 10 } = args;
   
   // apply sorting
-  let postsData = [...allPosts];
+  let postsData = [...item];
   if (sort) {
     postsData.sort((a, b) => a[sort].localeCompare(b[sort]));
   }

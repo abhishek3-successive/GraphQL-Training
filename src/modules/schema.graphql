@@ -5,7 +5,7 @@ type Query {
   posts : [Post!]!
   post(id : ID!) : Post
   userWithLoading(id : ID!) : User
-  paginationPost( page : Int, limit: Int, sortBy: String) : [PostList!]!
+  paginationPost(page: Int, limit: Int, sort: String): PostList!
 }
 type Mutation {
     postMessages(content: String!, author:String!): Message!

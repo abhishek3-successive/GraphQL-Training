@@ -1,6 +1,5 @@
 import { blogData } from './mockdata.js';
 import { createPagination } from './helper/pagination.js';
-import { sortPost } from './helper/sorter.js';
 import { delay } from './helper/delay.js';
 
 export const blogQueryResolvers = {
@@ -15,15 +14,15 @@ export const blogQueryResolvers = {
     return user
   },
 
-  paginationPost : (_, {args}) =>{
-    const {sort , page , limit } = args;
+paginationPost: (_, { sort, page, limit }) => {
+  const paginatedPosts = createPagination(blogData.posts, { sort, page, limit });
 
-    const sortpost = sortPost(blogData.posts, sort);
+  return {
+    posts: paginatedPosts,
+    total: blogData.posts.length
+  };
+},
 
-    const res = createPagination(sortpost , {page, limit})
-
-    return res;
-  },
   users: () => blogData.user,
   user: (_, { id }) => blogData.user.find(u => u.id === id),
   posts: () => blogData.posts,
