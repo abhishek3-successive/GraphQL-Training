@@ -6,6 +6,7 @@ type Query {
   post(id : ID!) : Post
   userWithLoading(id : ID!) : User
   paginationPost(page: Int, limit: Int, sort: String): PostList!
+  comments(postId: ID!): [Comment!]!
 }
 type Mutation {
     postMessages(content: String!, author:String!): Message!
@@ -14,4 +15,15 @@ type Mutation {
     createComment(input : CreateCommentInput!): Comment!
     deleteComment(id : ID!): Boolean!
     simulateError : String!
+    sendMessage(content: String!, sender: String!): Message!
+    addComment(content: String!, postId: ID!, authorId: ID!): Comment!
+    setUserOnline(userId: ID!): User!
+    setUserOffline(userId: ID!): User!
+    addUser(username: String!, email: String!): User!
+}
+
+   type Subscription {
+      messageSent: Message!
+     commentAdded(postId: ID!): Comment!
+     userStatusChanged: User!
 }

@@ -26,7 +26,8 @@ paginationPost: (_, { sort, page, limit }) => {
   users: () => blogData.user,
   user: (_, { id }) => blogData.user.find(u => u.id === id),
   posts: () => blogData.posts,
-  post: (_, { id }) => blogData.posts.find(p => p.id === id)
+  post: (_, { id }) => blogData.posts.find(p => p.id === id),
+
 };
 
 
