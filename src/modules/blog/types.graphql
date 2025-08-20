@@ -20,9 +20,29 @@ type Comment {
   post: Post!
 }
 
- type Query {
-  users: [User!]!
-  user(id: ID!): User
+type PageInfo {
+  page : Int!
+  total : Int!
+  hasMore : Boolean!
+}
+
+type PostList {
   posts: [Post!]!
-  post(id: ID!): Post
+  total: Int!
+}
+
+#input Types
+
+input UpdateUserInput{
+  name : String
+  email : String
+}
+
+input CreatePostInput{
+  title : String!
+  content : String!
+}
+input CreateCommentInput{
+  content : String!
+  postId : ID!
 }

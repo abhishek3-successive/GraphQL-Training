@@ -4,6 +4,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import { typeDefs } from "./src/schema/typeDef.js";
 import { resolvers } from "./src/schema/resolvers.js";
+import { SERVER_CONFIG } from "./src/config/serverConfig.js";
 
 const server = new ApolloServer({
   typeDefs,
@@ -12,7 +13,7 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 6004 },
+  listen: { port : SERVER_CONFIG.PORT },
 });
 
 console.log(`🚀 Server ready at ${url}`);
