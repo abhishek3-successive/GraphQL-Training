@@ -13,8 +13,10 @@ import { useServer } from "graphql-ws/use/ws";
 
 import  pubsub  from "./pubsub.js"; // Import the pubsub instance
 
-import { typeDefs } from "../src/schema/typeDef.js";
-import { resolvers } from "../src/schema/resolvers.js";
+import { typeDefs } from "../schema/typeDef.js";
+import { resolvers } from "../schema/resolvers.js";
+import { verify } from "crypto";
+import { verifyToken } from "../utils/auth.js";
 
 
 
@@ -41,7 +43,19 @@ export async function createExpressServer() {
     cors(),
     express.json(),
     expressMiddleware(server, {
-      context: async () => ({ pubsub }),
+      context: async ({ req }) => {
+        const tokken = req.headers.authorization || "";
+        let user = null;
+
+        if (tokken) {
+          try {
+            user = verifyToken(tokken);
+          } catch (err) {
+            console.log("Invalid Tokken", err.message);
+          }
+        }
+        return { user, pubsub }; // auth + pubsub
+      }
     })
   );
 
@@ -54,6 +68,7 @@ export async function createExpressServer() {
   useServer(
     {
       schema,
+    
       context: async () => ({ pubsub }), // 👈 inject pubsub in WS context
     },
     wsServer

@@ -1,4 +1,4 @@
-import { createApolloServer } from "./server/express.js";
+import { createApolloServer } from "./src/server/express.js";
 import { connectDB } from "./src/config/db.js";
 import { SERVER_CONFIG } from "./src/config/serverConfig.js";
 

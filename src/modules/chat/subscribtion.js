@@ -1,4 +1,4 @@
-import pubsub from "../../../server/pubsub.js";
+import pubsub from "../../server/pubsub.js";
 
 export const subscriptionsReslover = {
   messageSent: {

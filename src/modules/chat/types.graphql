@@ -2,17 +2,15 @@ type User {
   id: ID!
   username: String!
   email: String!
+  isOnline : Boolean!
+  createdAt : String
+  updatedAt : String
 }
 
-type Message {
+type chatMessage {
   id: ID!
   content: String!
   sender: User!
   createdAt: String!
 }
 
-
-input adduser{
-  name : String!
-  email : String!
-}

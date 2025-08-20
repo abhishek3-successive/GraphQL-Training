@@ -1,19 +1,31 @@
 import User from "../../models/User.js";
 import Message from "../../models/message.js";
+import { generateTokken } from "../../utils/auth.js";
 
 export const chatMutationReslover = {
-    async addUser(_, { username, email }) {
+    addUser: async(_, { username, email }) => {
       const user = new User({ username, email });
       await user.save();
       return user;
   },
+loginUser : async(_,{username})=>{
+  const user = await User.findOne({username});
+  if(!user){
+    throw new Error(`user not found`)
+  }
+
+  const tokken = generateTokken(user)
+
+  return{tokken,user}
+},
+  
 
   sendMessage: async (_, { content, sender }, {pubsub}) => {
    const message = await Message.create({ content, sender });
-
+            await message.populate("sender");
       const payload = {
         id: message._id.toString(),
-        content: message.content,  // ✅ must exist
+        content: message.content,  
         sender: message.sender,
         createdAt: message.createdAt.toISOString(),
       };
