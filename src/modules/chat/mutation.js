@@ -56,4 +56,17 @@ loginUser : async(_,{username})=>{
     await pubsub.publish("USER_STATUS_CHANGED", { userStatusChanged: user });
     return user;
   },
+
+  deleteUser : async(_,{id})=>{
+    const user = await User.findOne({id});
+    if(!user){
+      throw new Error("User not found")
+    }
+    if(user.role != "admin"){
+      throw new Error("Unauthorized")
+  }
+  await User.findByIdAndDelete(id);
+  return true
+}
+
 }

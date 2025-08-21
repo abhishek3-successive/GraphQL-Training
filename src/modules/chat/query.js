@@ -7,6 +7,9 @@ users : async(_,args , context) => {
   if(!context.user){
     throw new Error("unauth")
   }
+  if(!context.user.role != "admin"){
+    throw new Error("Forbidden : Admin only")
+  }
   return await User.find();
 },
 user : async(_,{id}) => await User.findById(id)
