@@ -1,19 +1,15 @@
-// index.js
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
-import { typeDefs } from "./src/schema/typeDef.js";
-import { resolvers } from "./src/schema/resolvers.js";
+import { createApolloServer } from "./src/server/express.js";
+import { connectDB } from "./src/config/db.js";
 import { SERVER_CONFIG } from "./src/config/serverConfig.js";
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [ApolloServerPluginLandingPageLocalDefault()],
-});
+const PORT = SERVER_CONFIG.PORT;
+async function start() {
+  await connectDB();
+  const httpServer = await createApolloServer();
+  httpServer.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+    console.log(`🔄 Subscriptions ready at ws://localhost:${PORT}/graphql`);
+  });
+}
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port : SERVER_CONFIG.PORT },
-});
-
-console.log(`🚀 Server ready at ${url}`);
+start();

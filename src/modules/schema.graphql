@@ -6,7 +6,15 @@ type Query {
   post(id : ID!) : Post
   userWithLoading(id : ID!) : User
   paginationPost(page: Int, limit: Int, sort: String): PostList!
+  comments(postId: ID!): [Comment!]!
+  chatMessages:chatMessage!
 }
+
+type authPayload {
+  tokken: String!
+  user: User!
+}
+
 type Mutation {
     postMessages(content: String!, author:String!): Message!
     updateUser(id : ID!, input : UpdateUserInput) : User!
@@ -14,4 +22,15 @@ type Mutation {
     createComment(input : CreateCommentInput!): Comment!
     deleteComment(id : ID!): Boolean!
     simulateError : String!
+    sendMessage(content: String!, sender: String!): Message!
+    setUserOnline(userId: ID!): User!
+    setUserOffline(userId: ID!): User!
+    addUser(username: String!, email: String!): User!
+    loginUser(username : String!):authPayload!
+}
+
+   type Subscription {
+     messageSent: chatMessage!
+     commentAdded(postId: ID!): Comment!
+     userStatusChanged: User!
 }
