@@ -10,7 +10,7 @@ export const generateTokken = (user)=>{
 export const verifyToken = (tokken)=>{
     try{
         return jwt.verify(tokken,process.env.JWT_SCREATE)
-    } catch{
-        return null;
+    } catch(err){
+         console.log("Something went wrong", err);
     }
 }
