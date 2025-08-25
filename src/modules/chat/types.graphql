@@ -1,7 +1,9 @@
 type User {
   id: ID!
+  id2: ID!
   username: String!
   email: String!
+  role : String!
   isOnline : Boolean!
   createdAt : String
   updatedAt : String

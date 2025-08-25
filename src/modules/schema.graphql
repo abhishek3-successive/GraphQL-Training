@@ -25,8 +25,9 @@ type Mutation {
     sendMessage(content: String!, sender: String!): Message!
     setUserOnline(userId: ID!): User!
     setUserOffline(userId: ID!): User!
-    addUser(username: String!, email: String!): User!
+    addUser(username: String!, email: String!, role : String!): User!
     loginUser(username : String!):authPayload!
+    deleteUser(idadmin: ID!, iduser : ID!): Boolean!
 }
 
    type Subscription {
